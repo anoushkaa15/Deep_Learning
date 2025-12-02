@@ -95,6 +95,7 @@ except Exception as e:
     print(f"       Error re-installing packages: {e}")
 
 
+
 # --- CELL 2: RUN THIS TO START ANOMALY PRE-TRAINING (DYNAMIC MSE STAGNATION) ---
 import os
 import sys
@@ -197,7 +198,7 @@ def load_anomaly_masks(anomaly_labels_dir, filename, img_size=IMG_SIZE):
 
 
 class AgriVision4ChDataset(Dataset):
-    def _init_(self, root_dir, split='train', transform=None):
+    def init(self, root_dir, split='train', transform=None):
         self.root_dir = os.path.join(root_dir, split)
         self.img_rgb_dir = os.path.join(self.root_dir, "images", "rgb")
         self.img_nir_dir = os.path.join(self.root_dir, "images", "nir")
@@ -205,10 +206,10 @@ class AgriVision4ChDataset(Dataset):
         self.image_ids = sorted(os.listdir(self.img_rgb_dir))
         self.transform = transform
 
-    def _len_(self):
+    def len(self):
         return len(self.image_ids)
 
-    def _getitem_(self, idx):
+    def getitem(self, idx):
         filename = self.image_ids[idx]
         rgb_path = os.path.join(self.img_rgb_dir, filename)
         nir_path = os.path.join(self.img_nir_dir, filename)
@@ -411,5 +412,5 @@ def main():
     print(f"\n✅ Final Evaluation | AvgLoss={final_loss:.6f} | mIoU={final_iou:.6f}")
 
 
-if _name_ == "_main_":
+if name == "main":
     main()
