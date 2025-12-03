@@ -50,22 +50,22 @@ We present a comprehensive study on Anomaly Detection in Aerial Agricultural Ima
 
 ### **2.1 Problem Statement**
 
-Modern agriculture relies heavily on the early detection of crop stresses to maximize yield and minimize resource wastage. Farmers face a multitude of anomalies including drydown, nutrient deficiency, weed clusters, planter skips, and water stress3. However, automating this detection is computationally difficult because crops are biologically complex systems. The core problem lies in the nature of agricultural data4:
+Modern agriculture relies heavily on the early detection of crop stresses to maximize yield and minimize resource wastage. Farmers face a multitude of anomalies including drydown, nutrient deficiency, weed clusters, planter skips, and water stress3. However, automating this detection is computationally difficult because crops are biologically complex systems. The core problem lies in the nature of agricultural data:
 
-High Variability: Anomalies vary significantly across different crops, seasons, and field conditions5.
-Annotation Costs: Annotating such diverse anomalies at a pixel level is extremely expensive and requires expert agronomists6.
-Complexity: Unlike industrial datasets (e.g., MV-Tec), agricultural scenes are unstructured, contain natural randomness, and lack fixed geometry 7.
+High Variability: Anomalies vary significantly across different crops, seasons, and field conditions.
+Annotation Costs: Annotating such diverse anomalies at a pixel level is extremely expensive and requires expert agronomists.
+Complexity: Unlike industrial datasets (e.g., MV-Tec), agricultural scenes are unstructured, contain natural randomness, and lack fixed geometry.
 
-Existing supervised methods struggle because anomalies are rare (leading to class imbalance) and "normal" crop appearance changes constantly8. Therefore, there is an urgent need for label-free, generalizable methods that can handle the spatial and structural complexity of aerial imagery9.
+Existing supervised methods struggle because anomalies are rare (leading to class imbalance) and "normal" crop appearance changes constantly8. Therefore, there is an urgent need for label-free, generalizable methods that can handle the spatial and structural complexity of aerial imagery.
 
 ### **2.2 Our Contributions**
 
 Our work systematically explores and evaluates different deep learning architectures for this task. Our primary contributions are:
 
-Failure Analysis of Supervised Models: We demonstrate empirically that Conditional GANs (cGANs) struggle with the irregular boundaries of agricultural anomalies, achieving suboptimal segmentation results due to label noise and unstable adversarial training 10.
-Identification of Reconstruction Collapse: Through the implementation of a CNN-based autoencoder, we validate that simple reconstruction objectives lead to the model "learning" the anomalies, thereby rendering them undetectable via reconstruction error maps11.
-Implementation of Swin-MAE: We successfully adapt the Swin Transformer with Masked Autoencoding to 4-channel satellite images (RGB + NIR), utilizing a 75% masking ratio to force the learning of global spatial contexts12.
-Dynamic ASL Trigger: We propose a label-free dynamic mechanism that activates Anomaly Suppression Loss (ASL) when the Mean Squared Error (MSE) of the validation set stagnates, ensuring the suppression mechanism is applied only after the model has learned the normal crop structure13131313.
+Failure Analysis of Supervised Models: We demonstrate empirically that Conditional GANs (cGANs) struggle with the irregular boundaries of agricultural anomalies, achieving suboptimal segmentation results due to label noise and unstable adversarial training.
+Identification of Reconstruction Collapse: Through the implementation of a CNN-based autoencoder, we validate that simple reconstruction objectives lead to the model "learning" the anomalies, thereby rendering them undetectable via reconstruction error maps.
+Implementation of Swin-MAE: We successfully adapt the Swin Transformer with Masked Autoencoding to 4-channel satellite images (RGB + NIR), utilizing a 75% masking ratio to force the learning of global spatial contexts.
+Dynamic ASL Trigger: We propose a label-free dynamic mechanism that activates Anomaly Suppression Loss (ASL) when the Mean Squared Error (MSE) of the validation set stagnates, ensuring the suppression mechanism is applied only after the model has learned the normal crop structure.
 
 ### **2.3 System Pipeline Overview**
 
@@ -80,7 +80,7 @@ Our final proposed system utilizes a two-stage process leveraging self-supervise
 
 ### **3.1 Foundational Approaches in Vision Transformers**
 
-The shift from CNNs to Transformers in vision tasks is well-documented. Liu et al. (2021) introduced the Swin Transformer, a hierarchical vision transformer using shifted windows15151515. This architecture is crucial for our work as it provides strong feature representation while remaining computationally efficient, making it suitable for detecting subtle deviations in high-resolution aerial images16. Furthermore, Mia et al. (2023) in "ViTs Are Everywhere" highlighted that Transformers trained with self-supervised masked modeling demonstrate robust performance in domains where anomalies lack labels, validating our choice of architecture17171717.
+The shift from CNNs to Transformers in vision tasks is well-documented. Liu et al. (2021) introduced the Swin Transformer, a hierarchical vision transformer using shifted windows. This architecture is crucial for our work as it provides strong feature representation while remaining computationally efficient, making it suitable for detecting subtle deviations in high-resolution aerial images16. Furthermore, Mia et al. (2023) in "ViTs Are Everywhere" highlighted that Transformers trained with self-supervised masked modeling demonstrate robust performance in domains where anomalies lack labels, validating our choice of architecture.
 
 ### **3.2 Reconstruction-Based Anomaly Detection**
 
@@ -88,7 +88,7 @@ Reconstruction-based detection assumes that a model trained only on normal data 
 
 ### **3.3 Anomaly Suppression Mechanisms**
 
-To combat reconstruction collapse, Liu et al. (2023) proposed BiGSET, a separation training framework using binary masks to distinguish normal regions from suspected anomalies20. Most importantly, our work is an extension of the concepts presented by Shikhar et al. (2024) in "Label-Free Anomaly Detection in Aerial Agricultural Images with Masked Image Modeling". This paper established the Swin-Transformer-based MAE framework for agriculture and introduced a fixed Anomaly Suppression Loss (ASL). Our method extends this by making the suppression mechanism dynamic rather than fixed, aiming to improve stability during continued learning22.
+To combat reconstruction collapse, Liu et al. (2023) proposed BiGSET, a separation training framework using binary masks to distinguish normal regions from suspected anomalies20. Most importantly, our work is an extension of the concepts presented by Shikhar et al. (2024) in "Label-Free Anomaly Detection in Aerial Agricultural Images with Masked Image Modeling". This paper established the Swin-Transformer-based MAE framework for agriculture and introduced a fixed Anomaly Suppression Loss (ASL). Our method extends this by making the suppression mechanism dynamic rather than fixed, aiming to improve stability during continued learning.
 
 ---
 
