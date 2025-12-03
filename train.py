@@ -16,7 +16,6 @@ else:
 # 2. Change directory
 print("[2/5] Changing directory to Swin-MAE...")
 try:
-    # This magic command is the best way to change dir in a notebook
     %cd UAV_Anomaly_Detection/Swin-MAE
 except Exception as e:
     print(f"       (Already in correct directory)")
