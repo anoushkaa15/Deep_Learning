@@ -211,7 +211,10 @@ Future work will focus on:
 
 
 VIDEO EXPLANATION:
-<video width="600" controls>
+
+<video width="700" controls>
   <source src="Dynamic_ASL-MAE.mp4" type="video/mp4">
+  Your browser does not support the video tag.
 </video>
+
 
