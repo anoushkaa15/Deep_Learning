@@ -209,3 +209,9 @@ Future work will focus on:
 [4] Yingjie Liu, Changhao Li, and Haibo He. BIGSET: Binary Mask-Guided Separation Training for DNN-based Hyperspectral Anomaly Detection. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW), pages 345-354, 2023.
 [5] Sambal Shikhar and Anupam Sobti. Label-Free Anomaly Detection in Aerial Agricultural Images with Masked Image Modeling. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW), pages 3750-3759, 2024.
 
+
+VIDEO EXPLANATION:
+<video width="600" controls>
+  <source src="Dynamic_ASL-MAE.mp4" type="video/mp4">
+</video>
+
