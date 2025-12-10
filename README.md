@@ -130,10 +130,15 @@ Figure 4: Fine-tuning logs for Swin-MAE showing improved convergence and mIoU co
 ### 4.4 Phase: Swin-MAE Anomaly Detection (Reconstruction-Error–Based)
 
 Building on the strengths of self-supervised learning, we adapted the Swin-MAE framework specifically for label-free anomaly detection in agricultural imagery.
- • Masked Autoencoding Setup: The model was trained to reconstruct 4-channel inputs (RGB + NIR) with a 75% masking ratio, exposing the encoder to only sparse visible patches. This forces the network to learn global spatial relationships, vegetation structure, and field geometry rather than relying on pixel-level cues. 
- • Anomaly Scoring: Since no labels are required, anomalies are detected by computing reconstruction error between the input and the MAE-generated output. Regions that deviate significantly from expected farmland structure—such as road intrusion, machinery tracks, or foreign objects—produce high-error responses that are thresholded into anomaly masks. 
+
+ • Masked Autoencoding Setup: The model was trained to reconstruct 4-channel inputs (RGB + NIR) with a 75% masking ratio, exposing the encoder to only sparse visible patches. This forces the network to learn global spatial relationships, vegetation structure, and field geometry rather than relying on pixel-level cues.  
+ 
+ • Anomaly Scoring: Since no labels are required, anomalies are detected by computing reconstruction error between the input and the MAE-generated output. Regions that deviate significantly from expected farmland structure—such as road intrusion, machinery tracks, or foreign objects—produce high-error responses that are thresholded into anomaly masks.  
+ 
  • Training Limitation: In this baseline setup, the anomaly suppression (ASL) mechanism was not dynamically triggered; instead, the number of epochs was hard-coded to 20, meaning the model always trained for a fixed duration regardless of loss saturation.
- • Observation: The method successfully captured structural irregularities but also produced noise-like false positives, indicating that pure reconstruction error struggles with subtle or low-contrast anomalies. 
+ 
+ • Observation: The method successfully captured structural irregularities but also produced noise-like false positives, indicating that pure reconstruction error struggles with subtle or low-contrast anomalies.
+ 
  • Metric: The final mIoU was 0.0621, demonstrating that while Swin-MAE learns rich texture priors, reconstruction-only anomaly detection remains challenging in this domain.
 
 <img width="769" height="97" alt="image" src="https://github.com/user-attachments/assets/ed216949-cc42-467b-89e1-1736869e0636" />
@@ -161,7 +166,7 @@ Method	Architecture	Supervision	mIoU
 Baseline 1	CNN Autoencoder	Unsupervised	0.039  
 Baseline 2	Conditional GAN	Supervised	0.155  
 Method A	Swin-MAE + Fine-Tuning	Self-Supervised + Supervised	0.234  
-Method B	Swin-MAE (Self-Supervised for 10 epochs) 0.062
+Method B	Swin-MAE (Self-Supervised for 10 epochs) 0.062  
 Method C Swin-MAE + Dynamic ASL	Unsupervised / Label-Free	0.100  
 
 Table 1: Comparative performance of different approaches. While fine-tuning yields higher metrics, the Dynamic ASL method offers a viable label-free alternative.
