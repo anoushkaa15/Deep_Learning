@@ -133,7 +133,7 @@ Building on the strengths of self-supervised learning, we adapted the Swin-MAE f
 
  • Masked Autoencoding Setup: The model was trained to reconstruct 4-channel inputs (RGB + NIR) with a 75% masking ratio, exposing the encoder to only sparse visible patches. This forces the network to learn global spatial relationships, vegetation structure, and field geometry rather than relying on pixel-level cues.  
  
- • Anomaly Scoring: Since no labels are required, anomalies are detected by computing reconstruction error between the input and the MAE-generated output. Regions that deviate significantly from expected farmland structure—such as road intrusion, machinery tracks, or foreign objects—produce high-error responses that are thresholded into anomaly masks.  
+ • Anomaly Scoring: Since no labels are required, anomalies are detected by computing reconstruction error between the input and the MAE-generated output. Regions that deviate significantly from expected farmland structure-such as road intrusion, machinery tracks, or foreign objects-produce high-error responses that are thresholded into anomaly masks.  
  
  • Training Limitation: In this baseline setup, the anomaly suppression (ASL) mechanism was not dynamically triggered; instead, the number of epochs was hard-coded to 20, meaning the model always trained for a fixed duration regardless of loss saturation.
  
@@ -145,6 +145,7 @@ Building on the strengths of self-supervised learning, we adapted the Swin-MAE f
 
 ### 4.5 Phase 5: Label-Free Dynamic ASL (Proposed Method)
 To achieve a truly label-free system, we enhanced the Swin-MAE architecture with a Dynamic Anomaly Suppression Loss (ASL) trigger.  
+
 •	The Logic: We track the validation reconstruction loss per epoch. Initially, the loss drops as the model learns the dominant "normal" crop features. Eventually, the learning saturates, and the loss plateaus.  
 •	The Trigger: We monitor for MSE stagnation (patience = 3 epochs). Once the plateau is detected (typically around epoch 12), we activate the ASL.  
 •	ASL Mechanism: The ASL down-weights pixels with high reconstruction error during the training update. This discourages the model from trying to minimize error on anomalies, effectively forcing it to "forget" or "ignore" how to reconstruct them, thereby maximizing the detection signal during testing.  
@@ -193,7 +194,7 @@ Our experiments confirmed that traditional supervised ML fails on agricultural d
 •	Closed Set Limitation: Supervised models only predict classes seen during training. An unknown pest or new disease appearing in the field is often misclassified rather than flagged as an anomaly.  
 
 ### 6.2 The Problem of Reconstruction Collapse
-One of the most critical insights from our work is the fatality of Reconstruction Collapse. Simple reconstruction models (like our Phase 2 CNN) quickly learn anomaly patterns. By minimizing MSE globally, the model learns to reconstruct the tractor tracks and weeds just as well as the corn. This results in a "vanishing gradient" of detection—the error map becomes flat, and the anomaly disappears.
+One of the most critical insights from our work is the fatality of Reconstruction Collapse. Simple reconstruction models (like our Phase 2 CNN) quickly learn anomaly patterns. By minimizing MSE globally, the model learns to reconstruct the tractor tracks and weeds just as well as the corn. This results in a "vanishing gradient" of detection-the error map becomes flat, and the anomaly disappears.
 
 ### 6.3 Lessons from Experimentation
 Through our "Journey" of four distinct phases, we derived three key lessons:  
