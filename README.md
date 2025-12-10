@@ -24,7 +24,8 @@ ________________________________________
 4.1 Phase 1: Conditional GAN (Supervised)  
 4.2 Phase 2: CNN-Based Autoencoder (Unsupervised)  
 4.3 Phase 3: Swin-MAE (Self-Supervised + Fine-Tuning)  
-4.4 Phase 4: Label-Free Dynamic ASL (Proposed Method)  
+4.4 Phase 4: Phase: Swin-MAE Anomaly Detection (Reconstruction-Error–Based)
+4.5 Phase 5: Label-Free Dynamic ASL (Proposed Method)  
 5 Results  
 5.1 Quantitative Results  
 5.2 Qualitative Visual Analysis  
@@ -126,7 +127,17 @@ Recognizing the limitations of CNNs in global context modeling, we adopted the S
  
 Figure 4: Fine-tuning logs for Swin-MAE showing improved convergence and mIoU compared to cGAN.
 
-### 4.4 Phase 4: Label-Free Dynamic ASL (Proposed Method)
+### 4.4 Phase: Swin-MAE Anomaly Detection (Reconstruction-Error–Based)
+
+Building on the strengths of self-supervised learning, we adapted the Swin-MAE framework specifically for label-free anomaly detection in agricultural imagery.
+• Masked Autoencoding Setup: The model was trained to reconstruct 4-channel inputs (RGB + NIR) with a 75% masking ratio, exposing the encoder to only sparse visible patches. This forces the network to learn global spatial relationships, vegetation structure, and field geometry rather than relying on pixel-level cues.
+• Anomaly Scoring: Since no labels are required, anomalies are detected by computing reconstruction error between the input and the MAE-generated output. Regions that deviate significantly from expected farmland structure—such as road intrusion, machinery tracks, or foreign objects—produce high-error responses that are thresholded into anomaly masks.
+• Observation: The method successfully captured structural irregularities but also produced noise-like false positives, indicating that pure reconstruction error struggles with subtle or low-contrast anomalies.
+• Metric: The final mIoU was 0.0621, demonstrating that while Swin-MAE learns rich texture priors, reconstruction-only anomaly detection remains challenging in this domain.
+
+<img width="769" height="97" alt="image" src="https://github.com/user-attachments/assets/ed216949-cc42-467b-89e1-1736869e0636" />
+
+### 4.5 Phase 5: Label-Free Dynamic ASL (Proposed Method)
 To achieve a truly label-free system, we enhanced the Swin-MAE architecture with a Dynamic Anomaly Suppression Loss (ASL) trigger.  
 •	The Logic: We track the validation reconstruction loss per epoch. Initially, the loss drops as the model learns the dominant "normal" crop features. Eventually, the learning saturates, and the loss plateaus.  
 •	The Trigger: We monitor for MSE stagnation (patience = 3 epochs). Once the plateau is detected (typically around epoch 12), we activate the ASL.  
@@ -156,11 +167,13 @@ Table 1: Comparative performance of different approaches. While fine-tuning yiel
 
 ### 5.2 Qualitative Visual Analysis
 The visual results highlight the strengths of the Swin-MAE approach over traditional CNNs.  
+<img width="479" height="501" alt="image" src="https://github.com/user-attachments/assets/93034b17-3cc6-47e6-87f3-c449d0a38cb3" />
+Figure 6: CNN Results. From Left to Right: RGB Composite, Ground Truth Mask, Reconstruction Error Map, Predicted Mask. 
 
-<img width="769" height="97" alt="image" src="https://github.com/user-attachments/assets/ed216949-cc42-467b-89e1-1736869e0636" />
 
-Figure 6: Swin-MAE Results. From Left to Right: RGB Composite, Ground Truth Mask, Reconstruction Error Map, Predicted Mask. Note the high contrast in the Error Map (red), indicating successful detection of the anomaly.
-In Figure 6, we observe that the Swin-MAE model generates a strong error signal (red heatmap) corresponding to the ground truth anomaly. Unlike the CNN model in Figure 3, the Swin-MAE preserves the difference between normal crops and the anomalous region.
+<img width="631" height="366" alt="image" src="https://github.com/user-attachments/assets/21843cc8-cec1-454d-a5dc-5aff86bc0a5e" />
+Figure 7: Swin-MAE Results. From Left to Right: RGB Composite, Ground Truth Mask, Reconstruction Error Map, Predicted Mask. Note the high contrast in the Error Map (red), indicating successful detection of the anomaly.
+In Figure 7, we observe that the Swin-MAE model generates a strong error signal (red heatmap) corresponding to the ground truth anomaly. Unlike the CNN model in Figure 3, the Swin-MAE preserves the difference between normal crops and the anomalous region.
 
 ________________________________________
 
