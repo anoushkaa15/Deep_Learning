@@ -168,10 +168,12 @@ Table 1: Comparative performance of different approaches. While fine-tuning yiel
 ### 5.2 Qualitative Visual Analysis
 The visual results highlight the strengths of the Swin-MAE approach over traditional CNNs.  
 <img width="479" height="501" alt="image" src="https://github.com/user-attachments/assets/93034b17-3cc6-47e6-87f3-c449d0a38cb3" />
+
 Figure 6: CNN Results. From Left to Right: RGB Composite, Ground Truth Mask, Reconstruction Error Map, Predicted Mask. 
 
 
 <img width="631" height="366" alt="image" src="https://github.com/user-attachments/assets/21843cc8-cec1-454d-a5dc-5aff86bc0a5e" />
+
 Figure 7: Swin-MAE Results. From Left to Right: RGB Composite, Ground Truth Mask, Reconstruction Error Map, Predicted Mask. Note the high contrast in the Error Map (red), indicating successful detection of the anomaly.
 In Figure 7, we observe that the Swin-MAE model generates a strong error signal (red heatmap) corresponding to the ground truth anomaly. Unlike the CNN model in Figure 3, the Swin-MAE preserves the difference between normal crops and the anomalous region.
 
