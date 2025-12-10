@@ -65,7 +65,10 @@ Our work systematically explores and evaluates different deep learning architect
 
 ### 2.3 System Pipeline Overview
 Our final proposed system utilizes a two-stage process leveraging self-supervised learning.  
-[Insert Image from PPT Page 16: System Architecture Diagram (Encoder/Decoder)]  
+<img width="1187" height="510" alt="image" src="https://github.com/user-attachments/assets/dd9db262-5749-4673-ac1d-aafc64295fb0" />
+
+
+ 
 Figure 1: The architecture of the Swin-MAE approach. The Encoder (green) processes visible patches using Swin Transformer blocks. The Decoder (yellow) reconstructs the full image. The difference between the input and output yields the Reconstruction Error Map.
 The pipeline processes input images of size $(H, W, 4)$, handling both RGB and Near-Infrared (NIR) channels. The encoder partitions the image into patches, embeds them, and processes them through hierarchical Swin Transformer blocks. The decoder expands these patches to reconstruct the original input. Anomalies are detected by analyzing the pixel-wise difference between the input and the reconstruction.
 
@@ -97,7 +100,8 @@ Initially, we implemented a Conditional Generative Adversarial Network (cGAN) fo
 •	Outcome: The model struggled significantly. The irregular nature of agricultural anomalies, combined with class imbalance, led to unstable adversarial training. The generator often failed to converge on the complex shapes of weed clusters or water stress patches.  
 •	Metric: The model achieved a Mean Intersection-Over-Union (mIoU) of only 0.1547.  
 
-[Insert Image from PPT Page 10: cGAN Training Logs and mIoU score]  
+<img width="1083" height="114" alt="image" src="https://github.com/user-attachments/assets/ab363655-fdb2-4ed6-b64a-c16721caca85" />
+
 Figure 2: Training logs for the Conditional GAN showing convergence difficulties and a low final mIoU.
 
 ### 4.2 Phase 2: CNN-Based Autoencoder (Unsupervised)
@@ -107,7 +111,8 @@ To address the lack of reliable labels, we moved to an unsupervised CNN-based au
 •	Outcome - Reconstruction Collapse: The model learned both normal and abnormal patterns indiscriminately. The "reconstruction collapse" meant that anomalous regions were reconstructed almost perfectly, resulting in no error signal for detection.  
 •	Metric: This approach yielded the lowest performance with an mIoU of 0.039.  
 
-[Insert Image from PPT Page 13: CNN Autoencoder Reconstruction Images]  
+<img width="895" height="197" alt="image" src="https://github.com/user-attachments/assets/3dd4c33a-1d36-4b6c-acb3-43cbfd3c172f" />
+ 
 Figure 3: Visualization of Reconstruction Collapse. The 'Reconstruction Error' map (third column) shows very little signal because the model successfully reconstructed the anomaly.
 
 ### 4.3 Phase 3: Swin-MAE (Self-Supervised + Fine-Tuning)
@@ -117,7 +122,8 @@ Recognizing the limitations of CNNs in global context modeling, we adopted the S
 •	Outcome: This method proved that self-supervised pre-training learns powerful texture representations.  
 •	Metric: Achieved an mIoU of 0.2336, the highest among our supervised attempts.  
 
-[Insert Image from PPT Page 11: Swin-MAE Fine-Tuning Logs]  
+<img width="753" height="185" alt="image" src="https://github.com/user-attachments/assets/f3f0ebba-90b7-4377-89ba-6d318817bf61" />
+ 
 Figure 4: Fine-tuning logs for Swin-MAE showing improved convergence and mIoU compared to cGAN.
 
 ### 4.4 Phase 4: Label-Free Dynamic ASL (Proposed Method)
@@ -128,7 +134,8 @@ To achieve a truly label-free system, we enhanced the Swin-MAE architecture with
 •	Outcome: This successfully separated anomalies without using ground-truth labels during the primary training phase.  
 •	Metric: Achieved an unsupervised mIoU of 0.10. While numerically lower than the supervised fine-tuning, this result is significant because it requires zero pixel-level annotations.  
 
-[Insert Image from PPT Page 15: ASL Activation Graph]  
+<img width="794" height="407" alt="image" src="https://github.com/user-attachments/assets/2d2c17e2-afc8-4eb7-b72a-82fe45e5a8cf" />
+
 Figure 5: Validation Loss curve. The red line indicates the point of stagnation (Epoch 12) where the ASL mechanism is triggered to prevent anomaly absorption.
 
 ________________________________________
@@ -148,7 +155,9 @@ Table 1: Comparative performance of different approaches. While fine-tuning yiel
 
 ### 5.2 Qualitative Visual Analysis
 The visual results highlight the strengths of the Swin-MAE approach over traditional CNNs.  
-[Insert Image from PPT Page 14: Swin-MAE Anomaly Detection Results]  
+
+<img width="769" height="97" alt="image" src="https://github.com/user-attachments/assets/ed216949-cc42-467b-89e1-1736869e0636" />
+
 Figure 6: Swin-MAE Results. From Left to Right: RGB Composite, Ground Truth Mask, Reconstruction Error Map, Predicted Mask. Note the high contrast in the Error Map (red), indicating successful detection of the anomaly.
 In Figure 6, we observe that the Swin-MAE model generates a strong error signal (red heatmap) corresponding to the ground truth anomaly. Unlike the CNN model in Figure 3, the Swin-MAE preserves the difference between normal crops and the anomalous region.
 
