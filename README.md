@@ -149,7 +149,8 @@ Method	Architecture	Supervision	mIoU
 Baseline 1	CNN Autoencoder	Unsupervised	0.039  
 Baseline 2	Conditional GAN	Supervised	0.155  
 Method A	Swin-MAE + Fine-Tuning	Self-Supervised + Supervised	0.234  
-Method B (Ours)	Swin-MAE + Dynamic ASL	Unsupervised / Label-Free	0.100  
+Method B	Swin-MAE (Self-Supervised for 10 epochs) 0.062
+Method C Swin-MAE + Dynamic ASL	Unsupervised / Label-Free	0.100  
 
 Table 1: Comparative performance of different approaches. While fine-tuning yields higher metrics, the Dynamic ASL method offers a viable label-free alternative.
 
