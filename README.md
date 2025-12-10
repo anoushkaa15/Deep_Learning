@@ -24,7 +24,7 @@ ________________________________________
 4.1 Phase 1: Conditional GAN (Supervised)  
 4.2 Phase 2: CNN-Based Autoencoder (Unsupervised)  
 4.3 Phase 3: Swin-MAE (Self-Supervised + Fine-Tuning)  
-4.4 Phase 4: Phase: Swin-MAE Anomaly Detection (Reconstruction-Error–Based)
+4.4 Phase 4: Phase: Swin-MAE Anomaly Detection (Reconstruction-Error–Based)                   
 4.5 Phase 5: Label-Free Dynamic ASL (Proposed Method)  
 5 Results  
 5.1 Quantitative Results  
