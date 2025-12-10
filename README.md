@@ -114,7 +114,7 @@ To address the lack of reliable labels, we moved to an unsupervised CNN-based au
 
 <img width="895" height="197" alt="image" src="https://github.com/user-attachments/assets/3dd4c33a-1d36-4b6c-acb3-43cbfd3c172f" />
  
-Figure 3: Visualization of Reconstruction Collapse. The 'Reconstruction Error' map (third column) shows very little signal because the model successfully reconstructed the anomaly.
+Figure 3: Visualization of Reconstruction Collapse. The 'Reconstruction Error' map (third column)  in Figure 6 shows very little signal because the model successfully reconstructed the anomaly.
 
 ### 4.3 Phase 3: Swin-MAE (Self-Supervised + Fine-Tuning)
 Recognizing the limitations of CNNs in global context modeling, we adopted the Swin Transformer with Masked Autoencoding.  
